@@ -59,6 +59,7 @@ namespace IdentityServer
                         StandardScopes.OpenId,
                         StandardScopes.Profile,
                         StandardScopes.OfflineAccess,
+                        LocalApi.ScopeName,
                         "roles"
                     },
                     AccessTokenLifetime=60*60,

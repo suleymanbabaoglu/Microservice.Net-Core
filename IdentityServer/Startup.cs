@@ -13,6 +13,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using IdentityServer.Services;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using static IdentityServer4.IdentityServerConstants;
 
 namespace IdentityServer
 {
@@ -30,7 +32,7 @@ namespace IdentityServer
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddLocalApiAuthentication();
-
+           
             services.AddControllersWithViews();
 
             services.AddDbContext<ApplicationDbContext>(options =>
