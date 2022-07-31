@@ -15,6 +15,7 @@ namespace IdentityServer
         public static IEnumerable<ApiResource> ApiResources => new ApiResource[]{
             new ApiResource("resource_catalog"){Scopes={"catalog_fullpermission"} },
             new ApiResource("resource_photo_stock"){Scopes={"photo_stock_fullpermission"} },
+            new ApiResource("resource_basket"){Scopes={"basket_fullpermission"} },
             new ApiResource(LocalApi.ScopeName)
             };
         public static IEnumerable<IdentityResource> IdentityResources =>
@@ -31,6 +32,7 @@ namespace IdentityServer
             {
                 new ApiScope("catalog_fullpermission","Full Permission for Catalog API"),
                 new ApiScope("photo_stock_fullpermission","Full Permission for PhotoStock API"),
+                new ApiScope("basket_fullpermission","Full Permission for Basket API"),
                 new ApiScope(LocalApi.ScopeName)
             };
 
@@ -60,7 +62,8 @@ namespace IdentityServer
                         StandardScopes.Profile,
                         StandardScopes.OfflineAccess,
                         LocalApi.ScopeName,
-                        "roles"
+                        "roles",
+                        "basket_fullpermission"
                     },
                     AccessTokenLifetime=60*60,
                     RefreshTokenExpiration=TokenExpiration.Absolute,
