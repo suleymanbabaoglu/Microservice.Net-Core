@@ -19,6 +19,7 @@ namespace IdentityServer
             new ApiResource("resource_discount"){Scopes={"discount_fullpermission"} },
             new ApiResource("resource_order"){Scopes={"order_fullpermission"} },
             new ApiResource("resource_fakepayment"){Scopes={"fakepayment_fullpermission"} },
+            new ApiResource("resource_gateway"){Scopes={"gateway_fullpermission"} },
             new ApiResource(LocalApi.ScopeName)
             };
         public static IEnumerable<IdentityResource> IdentityResources =>
@@ -39,6 +40,7 @@ namespace IdentityServer
                 new ApiScope("discount_fullpermission","Full Permission for Discount API"),
                 new ApiScope("order_fullpermission","Full Permission for Order API"),
                 new ApiScope("fakepayment_fullpermission","Full Permission for FakePayment API"),
+                new ApiScope("gateway_fullpermission","Full Permission for Gateway API"),
                 new ApiScope(LocalApi.ScopeName)
             };
 
@@ -51,7 +53,11 @@ namespace IdentityServer
                     ClientId="WebMvcClient",
                     ClientSecrets={new Secret("secret".Sha256())},
                     AllowedGrantTypes=GrantTypes.ClientCredentials,
-                    AllowedScopes={"catalog_fullpermission","photo_stock_fullpermission",LocalApi.ScopeName}
+                    AllowedScopes={
+                        "catalog_fullpermission",
+                        "photo_stock_fullpermission",
+                        "gateway_fullpermission",
+                        LocalApi.ScopeName}
                 },
 
                 new Client
@@ -72,7 +78,8 @@ namespace IdentityServer
                         "basket_fullpermission",
                         "discount_fullpermission",
                         "order_fullpermission",
-                        "fakepayment_fullpermission"
+                        "fakepayment_fullpermission",
+                        "gateway_fullpermission"
                     },
                     AccessTokenLifetime=60*60,
                     RefreshTokenExpiration=TokenExpiration.Absolute,
