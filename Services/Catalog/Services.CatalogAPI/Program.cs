@@ -1,11 +1,9 @@
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
+using Services.CatalogAPI.Dtos;
+using Services.CatalogAPI.Services;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Services.CatalogAPI
 {
@@ -13,7 +11,21 @@ namespace Services.CatalogAPI
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+
+            var host = CreateHostBuilder(args).Build();
+
+            using (var scope = host.Services.CreateScope())
+            {
+                var serviceProvider = scope.ServiceProvider;
+                var categoryService = serviceProvider.GetRequiredService<ICategoryService>();
+                if (!categoryService.GetAllAsync().Result.Data.Any())
+                {
+                    categoryService.CreateAsync(new CategoryDto { Name = "Asp.net Core Course" }).Wait();
+                    categoryService.CreateAsync(new CategoryDto { Name = "PHP Course" }).Wait();
+                }
+            }
+
+            host.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
